@@ -12,8 +12,8 @@ Fila *cria_fila_paci();
 void libera_fila_paci(Fila *fi);
 int tamanho_fila_paci(Fila *fi);
 bool insere_fila_paci(Fila *fi, struct paciente pa);
-bool remove_fila_paci(Fila *fi);
+bool remove_fila_paci(Fila *fi, struct paciente *pa);
 void imprimir(Fila *fi);
 int buscar_fila_paci(Fila *fi, struct paciente *pa);
-
+void salva_paciente_arq(struct paciente pa);
 

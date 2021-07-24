@@ -68,7 +68,9 @@ bool insere_fila_paci(Fila *fi, struct paciente pa){
 			}
 			no->prox = ant->prox;
 			ant->prox = no;
-
+			if(ant == fi->final){
+				fi->final = no;
+			}
 			//insere no inicio
 			//insere no fim
 			//insere no meio
@@ -80,14 +82,16 @@ bool insere_fila_paci(Fila *fi, struct paciente pa){
 	return 1;
 }
 
-bool remove_fila_paci(Fila *fi){
+bool remove_fila_paci(Fila *fi, struct paciente *pa){
 	 if(fi == NULL || fi->inicio == NULL) return 0;
 
 	 Elem *aux = fi->inicio;
 	 fi->inicio = fi->inicio->prox;
 	 if(fi->inicio == NULL)
 		 fi->final = NULL;
-	 free(no);
+	 *pa = aux->dados;
+	 salva_paciente_arq(*pa);
+	 free(aux);
 	 fi->qtd--;
 	 return 1;
 }
@@ -122,3 +126,13 @@ int tamanho_fila_paci(Fila *fi){
 	return fi->qtd;
 }
 
+void salva_paciente_arq(struct paciente pa){
+	FILE *fp;
+	if((fp=fopen("arquivo.txt", "a+")) != NULL){
+		printf("O arquivo \n");
+		fprintf(fp, "Nome: %40s Telefone: %15s Prioridade: %hd\n", pa.nome, pa.telefone, pa.prioridade);
+		fclose(fp);
+	}else{
+		printf("Erro ao inserir dados no arquivo txt.\n");
+	}
+}

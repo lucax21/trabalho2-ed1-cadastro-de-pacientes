@@ -5,6 +5,7 @@ void menu_principal(){
 	printf("\n0 - Sair\n");
 	printf("1 - Cadastrar paciente\n");
 	printf("2 - Buscar paciente\n");
+	printf("3 - Proximo paciente a ser operado\n");
 	printf("4 - Verificar o tamanho da fila\n");
 	printf("5 - Test imprimir\n");
 }
@@ -49,6 +50,15 @@ void busca_paciente(Fila *fi){
 	}
 }
 
+void prox_paciente_operar(Fila *fi){
+	struct paciente pa;
+	if(remove_fila_paci(fi, &pa)){
+		printf("\nNome do paciente: %s\nTelefone: %s\nPrioridade: %hd\n", pa.nome, pa.telefone, pa.prioridade);
+	}else{
+		printf("Fila vazia\n");
+	}
+}
+
 void tamanho_fila(Fila *fi){
 	printf("\nO tamanho da eh %d\n", tamanho_fila_paci(fi));
 }
@@ -68,6 +78,9 @@ void main(){
 				break;
 			case 2:
 				busca_paciente(fi);
+				break;
+			case 3:
+				prox_paciente_operar(fi);
 				break;
 			case 4: 
 				tamanho_fila(fi);
